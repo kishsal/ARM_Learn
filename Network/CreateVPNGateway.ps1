@@ -45,7 +45,7 @@ New-AzVirtualNetworkGateway -Name $GWName -ResourceGroupName $ResourceGroup `
 $Gateway = Get-AzVirtualNetworkGateway -ResourceGroupName $ResourceGroup -Name $GWName
 Set-AzVirtualNetworkGateway -VirtualNetworkGateway $Gateway -VpnClientAddressPool $VPNClientAddressPool
 
-### Generate Client Certificate
+### Generate Client Certificate on a Windows 10 machine
 
 # create the self-signed root certificate
 $cert = New-SelfSignedCertificate -Type Custom -KeySpec Signature `
@@ -63,21 +63,14 @@ New-SelfSignedCertificate -Type Custom -DnsName P2SChildCert -KeySpec Signature 
 <#
 With our certificates generated, we need to export our root certificate's public key.
 
-Run certmgr from PowerShell to open the Certificate Manager.
-
-Navigate to Personal > Certificates. Find and right-click the P2SRootCert certificate in the list and select All tasks > Export....
-
-In the Certificate Export Wizard, click Next.
-
-Ensure that No, do not export the private key is selected, and then click Next.
-
-On the Export File Format page, ensure that Base-64 encoded X.509 (.CER) is selected, and then click Next.
-
-In the File to Export page, under File name, navigate to a location you'll remember and save the file as P2SRootCert.cer, and then click Next.
-
-On the Completing the Certificate Export Wizard page, click Finish.
-
-On the Certificate Export Wizard message box, click OK.
+1) Run certmgr from PowerShell to open the Certificate Manager.
+2) Navigate to Personal > Certificates. Find and right-click the P2SRootCert certificate in the list and select All tasks > Export....
+3) In the Certificate Export Wizard, click Next.
+4) Ensure that No, do not export the private key is selected, and then click Next.
+5) On the Export File Format page, ensure that Base-64 encoded X.509 (.CER) is selected, and then click Next.
+6) In the File to Export page, under File name, navigate to a location you'll remember and save the file as P2SRootCert.cer, and then click Next.
+7) On the Completing the Certificate Export Wizard page, click Finish.
+8)On the Certificate Export Wizard message box, click OK.
 #>
 
 ### Upload the root certificate public key information
