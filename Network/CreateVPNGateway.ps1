@@ -1,3 +1,5 @@
+select-subscription
+
 $VNetName  = "VNetData"
 $FESubName = "FrontEnd"
 $BESubName = "Backend"
